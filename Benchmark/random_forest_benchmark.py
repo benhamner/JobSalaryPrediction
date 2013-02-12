@@ -13,7 +13,10 @@ def get_title(d):
     return d.Title
 
 def feature_extractor():
-    features = [('FullDescription-Bag of Words', 'FullDescription', CountVectorizer(max_features=100))]
+    features = [('FullDescription-Bag of Words', 'FullDescription', CountVectorizer(max_features=100)),
+                ('Title-Bag of Words', 'Title', CountVectorizer(max_features=100)),
+                ('LocationRaw-Bag of Words', 'LocationRaw', CountVectorizer(max_features=100)),
+                ('LocationNormalized-Bag of Words', 'LocationNormalized', CountVectorizer(max_features=100))]
     combined = FeatureMapper(features)
     return combined
 
@@ -29,6 +32,7 @@ def get_pipeline():
 def main():
     print("Reading in the training data")
     train = data_io.get_train_df()
+    #train = train[:50000]
 
     print("Extracting features and training")
     classifier = get_pipeline()
