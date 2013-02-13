@@ -3,11 +3,12 @@ Kaggle - Job Salary Prediction
 
 This repo contains sample code for the [Job Salary Prediction competition](https://www.kaggle.com/c/job-salary-prediction/), hosted by [Kaggle](http://www.kaggle.com) with [Adzuna](http://www.adzuna.co.uk/).
 
-It contains several benchmarks marked as different git tags. This is the **Mean Benchmark**. For another example, see the [Random Forest Benchmark](https://github.com/benhamner/JobSalaryPrediction/tree/RandomForestBenchmark).
+It contains several benchmarks marked as different git tags. This is the **Random Forest Benchmark**. For another example, see the [Mean Benchmark](https://github.com/benhamner/JobSalaryPrediction/tree/MeanBenchmark).
 
 Executing this benchmark requires Python 2.7 along with the following packages:
 
  - pandas (version >=10.1)
+ - sklearn
  - numpy
 
 To run the benchmark,
@@ -18,4 +19,10 @@ To run the benchmark,
 4. Make predictions on the validation set by running `python predict.py`
 5. [Make a submission](https://www.kaggle.com/c/job-salary-prediction/team/select) with the output file
 
-This benchmark took under a minute to execute on a Windows 8 laptop with 8GB of RAM and 4 cores at 2.7GHz.
+This benchmark took approximately 1.5 hours to execute on a Windows 8 laptop with 8GB of RAM and 4 cores at 2.7GHz.
+
+If you run into issues with execution time or memory usage, you can make the model run faster and use less memory by doing the following:
+
+ - Reduce the n_estimators parameter on RandomForestRegressor in train.py to 10
+ - Reduce the max_features parameter on CountVectorizer in train.py to 20
+ - Set the nrows parameter to the pd.read_csv function in data_io.py to 10000 (currently not set)
