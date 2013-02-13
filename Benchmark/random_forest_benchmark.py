@@ -23,29 +23,30 @@ def feature_extractor():
 def get_pipeline():
     features = feature_extractor()
     steps = [("extract_features", features),
-             ("classify", RandomForestRegressor(n_estimators=25, 
+             ("classify", RandomForestRegressor(n_estimators=8, 
                                                 verbose=2,
                                                 n_jobs=1,
-                                                min_samples_split=30))]
+                                                min_samples_split=30,
+                                                random_state=3465343))]
     return Pipeline(steps)
 
 def main():
     print("Reading in the training data")
     train = data_io.get_train_df()
-    #train = train[:50000]
+    train = train[:10000]
 
     print("Extracting features and training")
     classifier = get_pipeline()
     classifier.fit(train, train["SalaryNormalized"])
 
     print("Saving the classifier")
-    #data_io.save_model(classifier, "model.pickle")
+    data_io.save_model(classifier)
     
     print("Making predictions") 
     valid = data_io.get_valid_df()
     predictions = classifier.predict(valid)   
     predictions = predictions.reshape(len(predictions), 1)
-    data_io.write_submission("random_forest_benchmark.csv", predictions)
+    data_io.write_submission(predictions)
 
 if __name__=="__main__":
     main()

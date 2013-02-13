@@ -1,0 +1,6 @@
+{
+    "train_data_path": "$DataPath/Adzuna/Release0/Train.csv",
+    "valid_data_path": "$DataPath/Adzuna/Release0/Valid.csv",
+    "model_path": "$DataPath/Adzuna/Models/random_forest.pickle",
+    "prediction_path": "$DataPath/Adzuna/Submissions/random_forest_benchmark.csv"
+}

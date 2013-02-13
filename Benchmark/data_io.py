@@ -1,8 +1,15 @@
 import csv
+import json
 import numpy as np
 import os
 import pandas as pd
 import pickle
+
+def get_paths():
+    paths = json.loads(open("../Settings.json").read())
+    for key in paths:
+        paths[key] = os.path.expandvars(paths[key])
+    return paths
 
 def identity(x):
     return x
@@ -14,43 +21,26 @@ converters = { "FullDescription" : identity
              , "LocationNormalized": identity
              }
 
-def get_data_path():
-    return os.path.join(os.environ["DataPath"],
-                        "Adzuna", "Release0")
-
-def get_submissions_path():
-    return os.path.join(os.environ["DataPath"],
-                        "Adzuna", "Submissions")
-
 def get_train_df():
-    train_path = os.path.join(get_data_path(), 
-                              "train.csv")
-
+    train_path = get_paths()["train_data_path"]
     return pd.read_csv(train_path, converters=converters)
 
 def get_valid_df():
-    valid_path = os.path.join(get_data_path(), 
-                              "valid.csv")
+    valid_path = get_paths()["valid_data_path"]
     return pd.read_csv(valid_path, converters=converters)
 
-def save_model(model, file_name):
-    out_path = os.path.join(os.environ["DataPath"],
-                            "Adzuna",
-                            "TrainedModels",
-                            file_name)
+def save_model(model):
+    out_path = get_paths()["model_path"]
     pickle.dump(model, open(out_path, "w"))
 
-def load_model(file_name):
-    in_path = os.path.join(os.environ["DataPath"],
-                           "Adzuna",
-                           "TrainedModels",
-                           file_name)
+def load_model():
+    in_path = get_paths()["model_path"]
     return pickle.load(open(in_path))
 
-def write_submission(file_name, predictions):
-    writer = csv.writer(open(os.path.join(get_submissions_path(), file_name)
-                             , "w"), lineterminator="\n")
+def write_submission(predictions):
+    prediction_path = get_paths()["prediction_path"]
+    writer = csv.writer(open(prediction_path, "w"), lineterminator="\n")
     valid = get_valid_df()
-    rows = [x for x in zip(valid["Id"], predictions)]
+    rows = [x for x in zip(valid["Id"], predictions.flatten())]
     writer.writerow(("Id", "SalaryNormalized"))
     writer.writerows(rows)
