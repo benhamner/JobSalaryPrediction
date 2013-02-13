@@ -1,14 +1,14 @@
 import data_io
-import numpy as np
 import pickle
 
 def main():
-    print("Loading the model")
-    model = data_io.load_model()
+    print("Loading the classifier")
+    classifier = data_io.load_model()
     
     print("Making predictions") 
     valid = data_io.get_valid_df()
-    predictions = model * np.ones(len(valid))
+    predictions = classifier.predict(valid)   
+    predictions = predictions.reshape(len(predictions), 1)
 
     print("Writing predictions to file")
     data_io.write_submission(predictions)
