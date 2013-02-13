@@ -10,7 +10,7 @@ To run them,
 1. [Download the data](https://www.kaggle.com/c/job-salary-prediction/data)
 2. Modify the get_paths function in util.py to point to the data path and the submission output path on your system
 3. Run the benchmarks by executing the corresponding script (e.g. `python random_forest_benchmark.py`)
-4. [Make a submission](https://www.kaggle.com/c/job-salary-prediction/submissions/attach) with the output file
+4. [Make a submission](https://www.kaggle.com/c/job-salary-prediction/team/select) with the output file
 
 The benchmarks are:
 
