@@ -19,6 +19,8 @@ To run the benchmark,
 4. Make predictions on the validation set by running `python predict.py`
 5. [Make a submission](https://www.kaggle.com/c/job-salary-prediction/team/select) with the output file
 
+This benchmark took approximately 1.5 hours to execute on a Windows 8 laptop with 8GB of RAM and 4 cores at 2.7GHz.
+
 If you run into issues with execution time or memory usage, you can make the model run faster and use less memory by doing the following:
 
  - Reduce the n_estimators parameter on RandomForestRegressor in train.py to 10
