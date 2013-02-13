@@ -6,12 +6,6 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.pipeline import Pipeline
 
-from pdb import set_trace
-
-def get_title(d):
-    pickle.dump(d, open("d.pickle", "w"))
-    return d.Title
-
 def feature_extractor():
     features = [('FullDescription-Bag of Words', 'FullDescription', CountVectorizer(max_features=100)),
                 ('Title-Bag of Words', 'Title', CountVectorizer(max_features=100)),
@@ -42,11 +36,5 @@ def main():
     print("Saving the classifier")
     data_io.save_model(classifier)
     
-    print("Making predictions") 
-    valid = data_io.get_valid_df()
-    predictions = classifier.predict(valid)   
-    predictions = predictions.reshape(len(predictions), 1)
-    data_io.write_submission(predictions)
-
 if __name__=="__main__":
     main()
