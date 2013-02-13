@@ -18,3 +18,9 @@ To run the benchmark,
 3. Train the model by running `python train.py`
 4. Make predictions on the validation set by running `python predict.py`
 5. [Make a submission](https://www.kaggle.com/c/job-salary-prediction/team/select) with the output file
+
+If you run into issues with execution time or memory usage, you can make the model run faster and use less memory by doing the following:
+
+ - Reduce the n_estimators parameter on RandomForestRegressor in train.py to 10
+ - Reduce the max_features parameter on CountVectorizer in train.py to 20
+ - Set the nrows parameter to the pd.read_csv function in data_io.py to 10000 (currently not set)

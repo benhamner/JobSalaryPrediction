@@ -17,7 +17,7 @@ def feature_extractor():
 def get_pipeline():
     features = feature_extractor()
     steps = [("extract_features", features),
-             ("classify", RandomForestRegressor(n_estimators=8, 
+             ("classify", RandomForestRegressor(n_estimators=50, 
                                                 verbose=2,
                                                 n_jobs=1,
                                                 min_samples_split=30,
@@ -27,9 +27,8 @@ def get_pipeline():
 def main():
     print("Reading in the training data")
     train = data_io.get_train_df()
-    train = train[:10000]
 
-    print("Extracting features and training")
+    print("Extracting features and training model")
     classifier = get_pipeline()
     classifier.fit(train, train["SalaryNormalized"])
 
